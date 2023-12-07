@@ -60,10 +60,13 @@ const getRequestType = (paramsSchema?: OpenAPIV2.Parameters, url?: string): Requ
         queryParamsInterface[parameter.name] = parseParameter(parameter)
         break
       case 'formData':
+        // 处理formData类型请求的参数
+        // const type = url?.split('/')?.at(-1) + '_In'
+        const type = (paramsSchema?.[0] as OpenAPIV2.Parameter)?.schema?.$ref?.split('/')?.at(-1) ?? '未知'
         bodyParamsInterface = {
           type: 'FormData',
-          formatType: url?.split('/')?.at(-1) + '_In',
-          ref: '',
+          formatType: type,
+          ref: type,
           isBinary: true,
           description: '',
           required: true,
