@@ -1,6 +1,6 @@
 {
   "name": "open-swagger",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "swagger to frontend code",
   "keywords": [
     "swagger",
@@ -14,10 +14,12 @@
   "license": "MIT",
   "author": "yeyan1996",
   "main": "dist/main.js",
+  "bin": {
+    "openSwagger": "./dist/bin/openSwagger.js"
+  },
   "types": "index.d.ts",
   "files": [
     "dist/**",
-    "src/**",
     "index.d.ts",
     "README.md",
     "LICENSE"
