@@ -10,7 +10,7 @@ function getConfigPath(): string {
     return path.resolve(process.cwd(), argv[cIndex + 1])
   }
   // 默认配置文件
-  return path.resolve(process.cwd(), 'swagger.config.js')
+  return path.resolve(process.cwd(), 'swagger.config.ts')
 }
 
 // 注意：这里要引用编译后的 main.js
@@ -21,7 +21,7 @@ let config: any
 try {
   config = require(configPath)
 } catch (e) {
-  console.error('请提供有效的 swagger 配置文件路径，如：openSwagger -c ./swagger.config.js')
+  console.error('请提供有效的 swagger 配置文件路径，如：openSwagger -c ./swagger.config.ts')
   process.exit(1)
 }
 
