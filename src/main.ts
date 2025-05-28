@@ -105,7 +105,7 @@ const gen = async (
 
     code +=
       config.lang === 'ts' && imports.length
-        ? `import {${uniq(imports).join(',')}} from "${INTERFACE_PATH}";`
+        ? `import type {${uniq(imports).join(',')}} from "${INTERFACE_PATH}";`
         : ''
     code += `${config.header}\n\n`
     code += apisCode
