@@ -1,6 +1,6 @@
 {
   "name": "open-swagger",
-  "version": "0.0.11",
+  "version": "0.0.13",
   "description": "swagger to frontend code",
   "keywords": [
     "swagger",
@@ -15,7 +15,7 @@
   "author": "yeyan1996",
   "main": "dist/main.js",
   "bin": {
-    "openSwagger": "./dist/bin/openSwagger.js"
+    "open-swagger": "./dist/bin/openSwagger.js"
   },
   "types": "index.d.ts",
   "files": [
@@ -66,6 +66,11 @@
     "jest": "^26.0.1",
     "ts-jest": "^26.1.0",
     "typescript": "4.2.2"
+  },
+  "peerDependencies": {
+    "tsx": "^4.0.0",
+    "ts-node": "^10.0.0",
+    "typescript": "^5.0.0"
   },
   "gitHead": "f1d7873500734effd34cecd197f504940c7f2114"
 }

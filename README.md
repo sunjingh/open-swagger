@@ -1,15 +1,17 @@
-# free-swagger
+# open-swagger
 
 ![](https://img.shields.io/npm/v/free-swagger)
 
-free-swagger 基于 [free-swagger-core](https://www.npmjs.com/package/free-swagger-core)，提供 api，根据 swagger 文档全量生成前端接口代码并写入至项目文件
+open-swagger 基于 [free-swagger-core](https://www.npmjs.com/package/free-swagger-core)，提供 api，根据 swagger 文档全量生成前端接口代码并写入至项目文件
 
 
 # 安装
 
-> npm i free-swagger -D
+> npm i open-swagger -D
 
 **务必使用 -D 参数作为开发依赖，防止被 web 打包工具打包**
+
+> 若使用 .ts 类型的配置文件，请确保你安装了 tsx 或 ts-node + typescript
 
 # 生成 api 文件
 
@@ -18,10 +20,14 @@ free-swagger 基于 [free-swagger-core](https://www.npmjs.com/package/free-swagg
 demo: https://github.com/yeyan1996/free-swagger-demo
 
 ```javascript
-// swagger.config.js
-const freeSwagger = require("free-swagger");
+// swagger.config.ts
+import { type ApiConfig } from 'open-swagger'
 
-freeSwagger("https://petstore.swagger.io/v2/swagger.json");
+const config: ApiConfig = {
+  source: '',
+}
+
+module.exports = config
 ```
 
 参数为 swagger 源，可以是 url，也可以是本地的 json 文件的相对/绝对路径
@@ -31,32 +37,18 @@ freeSwagger("https://petstore.swagger.io/v2/swagger.json");
 之后在 nodejs 中运行当前脚本
 
 ```
-node swagger.config.js
+npx open-swagger -c swagger.config.ts
 ```
 
 或者绑定为 npm script
 
 ```
 // package.json
-"swagger": "node swagger.config.js"
+"swagger": "open-swagger -c swagger.config.ts"
 ```
 
 ```
 npm run swagger
-```
-
-还可以接收一个对象，进行详细配置
-
-```javascript
-// swagger.config.js
-const freeSwagger = require("free-swagger");
-const json = require("./swagger.json")
-
-freeSwagger({
-  source: json,
-  header: "import http from './request'", // 假设请求库在 ./request
-  lang: "js"
-});
 ```
 
 ## API
@@ -79,12 +71,12 @@ freeSwagger({
 
 ## 默认模版
 
-free-swagger 基于内置了默认模版用于生成 api 代码片段，具体见 [free-swagger-core](https://www.npmjs.com/package/free-swagger-core)
+open-swagger 基于内置了默认模版用于生成 api 代码片段，具体见 [free-swagger-core](https://www.npmjs.com/package/free-swagger-core)
 
 
 # 生成 mock 文件
 
-除了生成 api，free-swagger 还可以生成 mock 文件
+除了生成 api，open-swagger 还可以生成 mock 文件
 
 输入一个 swagger 源，全量生成 mock 数据（json），配合其他 mock 工具实现本地 mock
 
@@ -94,7 +86,7 @@ free-swagger 基于内置了默认模版用于生成 api 代码片段，具体�
 
 ![](https://tva1.sinaimg.cn/large/007S8ZIlly1ge6dlcwtw5j30za0fijtq.jpg)
 
-**注意：free-swagger 只输出 mock 文件，不提供本地 mock 服务**
+**注意：open-swagger 只输出 mock 文件，不提供本地 mock 服务**
 
 ## 项目使用
 
@@ -102,7 +94,7 @@ demo: https://github.com/yeyan1996/free-swagger-demo
 
 ```javascript
 // swagger-mock.config.js
-const { mock } = require("free-swagger");
+const { mock } = require("open-swagger");
 
 mock("https://petstore.swagger.io/v2/swagger.json");
 ```

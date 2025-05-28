@@ -19,6 +19,7 @@ declare global {
 }
 
 export default freeSwagger
+export type { ApiConfig, MockConfig } from './src/utils'
 export * from './src/utils'
 export * from './src/default'
 export { ParsedPathsObject } from './src/parse/path'
