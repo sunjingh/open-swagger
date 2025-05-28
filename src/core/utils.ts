@@ -23,6 +23,7 @@ export interface TemplateFunction {
 export interface TemplateConfig {
   url: string
   summary: string
+  description: string
   method: string
   name: string
   responseType: string

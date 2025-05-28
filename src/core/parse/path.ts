@@ -5,6 +5,7 @@ import { getRequestType, Request } from './request'
 export interface ParsedApi extends Request, Response {
   deprecated: boolean
   summary: string
+  description: string
   url: string
   method: Method
   name: string
@@ -27,6 +28,7 @@ const parsePath = (
   {
     parameters,
     summary = '',
+    description = '',
     responses,
     deprecated = false,
   }: OpenAPIV2.OperationObject
@@ -42,6 +44,7 @@ const parsePath = (
 
   return {
     summary,
+    description,
     deprecated,
     url,
     name,

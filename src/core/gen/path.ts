@@ -48,6 +48,7 @@ const genPath = (
       responseType: api.responseInterface.isBinary ? 'blob' : 'json',
       deprecated: api.deprecated,
       summary: api.summary,
+      description: api.description,
       IResponse: api.responseInterface.formatType,
       pathParams: Object.keys(api.pathParamsInterface),
       IQueryParams,
