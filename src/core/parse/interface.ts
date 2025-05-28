@@ -123,7 +123,7 @@ const parseInterfaceName = (interfaceName: string): ParsedInterface => {
 // 还原 interface
 // 树形数组 => interface 名
 const reduceInterfaceName = (tree: ParsedInterface): string => {
-  if (tree.generics) {
+  if (tree.generics?.length) {
     return `${tree.formatName}<${tree.generics
       .map((child) => reduceInterfaceName(child))
       .join(',')}>`
