@@ -161,7 +161,13 @@ const schemaToTsType = (
         : `${recursive(schema.items, formatType)}[]`
     }
     if (schema.type === 'object') {
-      if (!schema.properties) return 'Record<string | number | symbol, any>'
+      if (!schema.properties) {
+        if (schema.additionalProperties && typeof schema.additionalProperties === 'object') {
+          // @ts-ignore-next-line
+          return `Record<string | number | symbol, ${schema.additionalProperties.$ref ? extractInterfaceNameByRef(schema.additionalProperties.$ref) : 'any'}>`
+        }
+        return 'Record<string | number | symbol, any>'
+      }
       return `{${Object.entries(schema.properties).reduce((acc, cur) => {
         const [key, value] = cur
         return `${acc}${key}: ${recursive(value, formatType)};`
