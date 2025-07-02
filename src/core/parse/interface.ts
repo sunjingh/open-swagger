@@ -338,7 +338,7 @@ const parseInterface = (
       return {
         code: `${description ? `/** ${description} */\n` : ""}
           export enum ${interfaceName} {
-            ${xEnumDescriptions.reduce(
+            ${xEnumDescriptions?.reduce(
               (target: string, current: string, currentIndex: number) => {
                 const enumStr = `\n /** ${current} */ \n ${
                   xEnumVarnames[currentIndex]
