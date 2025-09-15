@@ -14,6 +14,8 @@ export interface CoreConfig<T = OpenAPIV2.Document> {
   typedef?: boolean
   interface?: boolean
   recursive?: boolean
+  // 强制所有字段为必填，不依赖于 swagger 的 required 属性
+  forceRequired?: boolean
 }
 
 export interface TemplateFunction {

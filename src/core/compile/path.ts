@@ -65,6 +65,7 @@ const compilePath = async (
         interfaceName: interfaceName,
         contextMap: contextMapInterface,
         recursive: config.recursive,
+        forceRequired: config.forceRequired, 
       })
       imports.push(...interfaceImports)
       return code
@@ -86,6 +87,7 @@ const compilePath = async (
           interfaceName: queryInterfaceName,
           contextMap: contextMapJsDoc,
           recursive: config.recursive,
+          forceRequired: config.forceRequired,
         })
       ).code
     : ''
@@ -96,6 +98,7 @@ const compilePath = async (
           interfaceName: bodyInterfaceName,
           contextMap: contextMapJsDoc,
           recursive: config.recursive,
+          forceRequired: config.forceRequired,
         })
       ).code
     : ''

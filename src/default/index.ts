@@ -39,6 +39,7 @@ export const getDefaultParams = (): Required<Omit<ApiConfig, 'source'>> => ({
   templateFunction: eval(jsTemplate),
   filename: (name) => camelcase(name),
   typeOnly: false,
+  forceRequired: false,
 })
 
 // 加载本地/远程 swagger

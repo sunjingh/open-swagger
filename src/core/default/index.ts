@@ -147,6 +147,7 @@ export const mergeDefaultParams = async (
     lang: "js",
     templateFunction:
       config.lang === "ts" ? eval(tsTemplate) : eval(jsTemplate),
+    forceRequired: false,
     ...config,
     source: normalizedSource,
   };

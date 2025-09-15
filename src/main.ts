@@ -39,6 +39,7 @@ const gen = async (
       source: config.source,
       // @ts-ignore
       url: config._url,
+      forceRequired: config.forceRequired,
     })
     await fse.writeFile(interfacePath, code)
   }
@@ -51,6 +52,7 @@ const gen = async (
       source: config.source,
       // @ts-ignore
       url: config._url,
+      forceRequired: config.forceRequired,
     })
     await fse.writeFile(jsDocPath, code)
   }

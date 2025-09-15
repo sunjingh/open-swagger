@@ -26,9 +26,10 @@ export type CompileTypesParams = {
   type?: Type
   recursive?: boolean
   url?: string
+  forceRequired?: boolean
 }
 export type CompileTypeParams = Required<
-  Required<Pick<CompileTypesParams, 'source' | 'contextMap' | 'interfaceName'>>
+  Required<Pick<CompileTypesParams, 'source' | 'contextMap' | 'interfaceName' | 'forceRequired'>>
 > &
   Pick<CompileTypesParams, 'recursive' | 'type'> & { imports: string[] }
 
@@ -47,6 +48,7 @@ const compileType: CompileType = ({
   type = 'interface',
   recursive,
   imports,
+  forceRequired,
 }) => {
   if (!source.definitions![interfaceName]) {
     return { code: '', imports }
@@ -63,7 +65,7 @@ const compileType: CompileType = ({
       if (node.code) {
         code +=
           type === 'interface'
-            ? `${formatCode('ts')(genInterface(node))}\n`
+            ? `${formatCode('ts')(genInterface(node, forceRequired))}\n`
             : `${genJsDocTypeDef(node)}\n`
         return
       }
@@ -82,6 +84,7 @@ const compileType: CompileType = ({
               type,
               recursive,
               imports,
+              forceRequired,
             })
             if (code) {
               return `${acc + code}\n`
@@ -92,7 +95,7 @@ const compileType: CompileType = ({
       }
       code +=
         type === 'interface'
-          ? `${formatCode('ts')(genInterface(node))}\n`
+          ? `${formatCode('ts')(genInterface(node, forceRequired))}\n`
           : `${genJsDocTypeDef(node)}\n`
     })
     return {
@@ -128,6 +131,7 @@ const compileTypes: CompileTypes = async ({
   contextMap,
   recursive,
   url,
+  forceRequired = false,
 }) => {
   const normalizedSource = normalizeSource(await transformSource(source))
   // 收集依赖
@@ -146,6 +150,7 @@ const compileTypes: CompileTypes = async ({
       imports,
       type,
       contextMap: map,
+      forceRequired,
     })
   } else {
     // 全量 type
@@ -160,6 +165,7 @@ const compileTypes: CompileTypes = async ({
           contextMap,
           imports,
           type,
+          forceRequired,
         })
         if (code) {
           return `${acc + code}\n`

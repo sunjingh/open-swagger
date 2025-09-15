@@ -5,7 +5,7 @@ const genInterface = ({
   props,
   code,
   description,
-}: ParsedInterface): string =>
+}: ParsedInterface, forceRequired: boolean): string =>
   code
     ? code
     : `${
@@ -16,7 +16,7 @@ const genInterface = ({
           Object.entries(props).map(
             ([propName, prop]) =>
               `${prop.description ? `\n/** ${prop.description} */` : ''}
-            '${propName}' ${prop.required ? '' : '?'}: ${prop.formatType}
+            '${propName}' ${prop.required || forceRequired ? '' : '?'}: ${prop.formatType}
             `
           )
         }
