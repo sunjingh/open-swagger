@@ -7,7 +7,9 @@ open-swagger 基于 [free-swagger-core](https://www.npmjs.com/package/free-swagg
 
 # 安装
 
-> npm i open-swagger -D
+> npm i @wits/open-swagger -D
+
+> pnpm i @wits/open-swagger -D
 
 **务必使用 -D 参数作为开发依赖，防止被 web 打包工具打包**
 
@@ -32,19 +34,17 @@ module.exports = config
 
 参数为 swagger 源，可以是 url，也可以是本地的 json 文件的相对/绝对路径
 
-![image-20200208153153194](https://tva1.sinaimg.cn/large/0082zybply1gbp11zc8jrj32bo0h842p.jpg)
-
 之后在 nodejs 中运行当前脚本
 
 ```
-npx open-swagger -c swagger.config.ts
+npx @wits/open-swagger -c swagger.config.ts
 ```
 
 或者绑定为 npm script
 
 ```
 // package.json
-"swagger": "open-swagger -c swagger.config.ts"
+"swagger": "@wits/open-swagger -c swagger.config.ts"
 ```
 
 ```
@@ -65,6 +65,7 @@ npm run swagger
 | filename         | 可选，生成 api 的文件名                         | (name:string): string            | -           | name 为当前 swagger 中标注的 controller 名     |
 | typeOnly | 可选，只生成 interface/typedef | boolean |  | false |
 | forceRequired | 可选，强制所有字段为必填，不依赖于 swagger 的 required 属性 | boolean |  | false |
+| forceReplace | 强制替换类型，不依赖于 swagger 的 type 属性 | Record<string, string> |  | - |
 
 **TemplateConfig**
 
@@ -81,11 +82,7 @@ open-swagger 基于内置了默认模版用于生成 api 代码片段，具体�
 
 输入一个 swagger 源，全量生成 mock 数据（json），配合其他 mock 工具实现本地 mock
 
-![](https://tva1.sinaimg.cn/large/00831rSTly1gdhwhmhydqj31fo0u0u0x.jpg)
-
 额外生成了一个 mock.js 文件用于汇总所有 json，这使得 mock 工具只需引入一个 mock.js 即可实现本地 mock
-
-![](https://tva1.sinaimg.cn/large/007S8ZIlly1ge6dlcwtw5j30za0fijtq.jpg)
 
 **注意：open-swagger 只输出 mock 文件，不提供本地 mock 服务**
 
@@ -146,8 +143,6 @@ mock({
 
 当前 swagger 源可能需要鉴权，free-swagger 提供了 cookie 选项，填入有权限的 cookie
 
-![image-20200813131204090](https://tva1.sinaimg.cn/large/007S8ZIlgy1ghp3w6jwgcj31h708ndob.jpg)
-
 或者直接将 swagger 源下载到本地，输入文件路径
 
 ## 使用 npm 形式安装后，打包工具报错
@@ -157,5 +152,3 @@ free-swagger 是 node 包，包含 node api，请勿在任何前端页面中使�
 ## 某些接口的 mock 文件没有生成
 
 不规范的 swagger 文档可能会导致部分 mock 数据丢失，free-swagger 会作出警告
-
-![image-20200813131308925](https://tva1.sinaimg.cn/large/007S8ZIlgy1ghp3x90jy1j31i60egju8.jpg)

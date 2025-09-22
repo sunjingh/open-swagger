@@ -23,14 +23,14 @@ export const JSDOC_PATH = './typedef/index.js' // jsdoc 的相对路径
 export const DEFAULT_MOCK_CONFIG = {
   cookie: '',
   wrap: false,
-  mockRoot: global.__DEV__
-    ? global.__PATH__ || path.resolve(__dirname, '../../test/mock/default')
+  mockRoot: (globalThis as any).__DEV__
+    ? (globalThis as any).__PATH__ || path.resolve(__dirname, '../../test/mock/default')
     : path.resolve(process.cwd(), 'src/mock'),
 }
 
 export const getDefaultParams = (): Required<Omit<ApiConfig, 'source'>> => ({
-  root: global.__DEV__
-    ? global.__PATH__ || path.resolve(__dirname, '../../test/api/default')
+  root: (globalThis as any).__DEV__
+    ? (globalThis as any).__PATH__ || path.resolve(__dirname, '../../test/api/default')
     : path.resolve(process.cwd(), 'src/api'),
   cookie: '',
   header: DEFAULT_CUSTOM_IMPORT_CODE_JS,
@@ -40,6 +40,7 @@ export const getDefaultParams = (): Required<Omit<ApiConfig, 'source'>> => ({
   filename: (name) => camelcase(name),
   typeOnly: false,
   forceRequired: false,
+  forceReplace: {},
 })
 
 // 加载本地/远程 swagger

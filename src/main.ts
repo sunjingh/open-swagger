@@ -40,6 +40,7 @@ const gen = async (
       // @ts-ignore
       url: config._url,
       forceRequired: config.forceRequired,
+      forceReplace: config.forceReplace,
     })
     await fse.writeFile(interfacePath, code)
   }
@@ -53,6 +54,7 @@ const gen = async (
       // @ts-ignore
       url: config._url,
       forceRequired: config.forceRequired,
+      forceReplace: config.forceReplace,
     })
     await fse.writeFile(jsDocPath, code)
   }

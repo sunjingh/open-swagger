@@ -16,6 +16,8 @@ export interface CoreConfig<T = OpenAPIV2.Document> {
   recursive?: boolean
   // 强制所有字段为必填，不依赖于 swagger 的 required 属性
   forceRequired?: boolean
+  // 强制替换类型，不依赖于 swagger 的 type 属性
+  forceReplace?: Record<string, string>
 }
 
 export interface TemplateFunction {

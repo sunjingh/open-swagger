@@ -5,9 +5,10 @@ const genInterface = ({
   props,
   code,
   description,
-}: ParsedInterface, forceRequired: boolean): string =>
+}: ParsedInterface, forceRequired: boolean, forceReplace: Record<string,string>): string =>
   code
     ? code
+    // 将 MyTable 类型强制替换为 any[]
     : `${
         description ? `/** ${description} */\n` : ''
       }export interface ${formatName} {
@@ -16,7 +17,7 @@ const genInterface = ({
           Object.entries(props).map(
             ([propName, prop]) =>
               `${prop.description ? `\n/** ${prop.description} */` : ''}
-            '${propName}' ${prop.required || forceRequired ? '' : '?'}: ${prop.formatType}
+            '${propName}' ${prop.required || forceRequired ? '' : '?'}: ${forceReplace?.[prop.formatType] || prop.formatType}
             `
           )
         }

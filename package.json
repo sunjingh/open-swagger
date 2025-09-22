@@ -1,6 +1,6 @@
 {
-  "name": "open-swagger",
-  "version": "0.1.5",
+  "name": "@wits/open-swagger",
+  "version": "1.0.6",
   "description": "swagger to frontend code",
   "keywords": [
     "swagger",

@@ -1,6 +1,9 @@
 import { OpenAPIV2 } from 'openapi-types'
-import { ApiConfig, MockConfig } from './src/utils'
-import { ParsedPathsObject } from './src/parse/path'
+
+// 单一来源：转发到声明产物（开发态通过 paths 映射到 src）
+export type ApiConfig<T = string | OpenAPIV2.Document> = import('./dist/src/utils').ApiConfig<T>
+export type MockConfig<T = string | OpenAPIV2.Document> = import('./dist/src/utils').MockConfig<T>
+export type ParsedPathsObject = import('./dist/src/parse/path').ParsedPathsObject
 
 declare function freeSwagger(
   config: ApiConfig | string,
@@ -11,7 +14,9 @@ declare function freeSwagger(
   }
 ): Promise<OpenAPIV2.Document>
 
-declare function mock(config: MockConfig | string): Promise<void>
+declare namespace freeSwagger {
+  function mock(config: MockConfig | string): Promise<void>
+}
 
 declare global {
   var __DEV__: boolean
@@ -19,8 +24,5 @@ declare global {
 }
 
 export default freeSwagger
-export type { ApiConfig, MockConfig } from './src/utils'
-export * from './src/utils'
-export * from './src/default'
-export { ParsedPathsObject } from './src/parse/path'
-export { mock }
+export * from './dist/src/utils'
+export * from './dist/src/default'

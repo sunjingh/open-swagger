@@ -27,9 +27,10 @@ export type CompileTypesParams = {
   recursive?: boolean
   url?: string
   forceRequired?: boolean
+  forceReplace?: Record<string, string>
 }
 export type CompileTypeParams = Required<
-  Required<Pick<CompileTypesParams, 'source' | 'contextMap' | 'interfaceName' | 'forceRequired'>>
+  Required<Pick<CompileTypesParams, 'source' | 'contextMap' | 'interfaceName' | 'forceRequired' | 'forceReplace'>>
 > &
   Pick<CompileTypesParams, 'recursive' | 'type'> & { imports: string[] }
 
@@ -49,6 +50,7 @@ const compileType: CompileType = ({
   recursive,
   imports,
   forceRequired,
+  forceReplace,
 }) => {
   if (!source.definitions![interfaceName]) {
     return { code: '', imports }
@@ -65,7 +67,7 @@ const compileType: CompileType = ({
       if (node.code) {
         code +=
           type === 'interface'
-            ? `${formatCode('ts')(genInterface(node, forceRequired))}\n`
+            ? `${formatCode('ts')(genInterface(node, forceRequired, forceReplace))}\n`
             : `${genJsDocTypeDef(node)}\n`
         return
       }
@@ -85,6 +87,7 @@ const compileType: CompileType = ({
               recursive,
               imports,
               forceRequired,
+              forceReplace,
             })
             if (code) {
               return `${acc + code}\n`
@@ -95,7 +98,7 @@ const compileType: CompileType = ({
       }
       code +=
         type === 'interface'
-          ? `${formatCode('ts')(genInterface(node, forceRequired))}\n`
+          ? `${formatCode('ts')(genInterface(node, forceRequired, forceReplace))}\n`
           : `${genJsDocTypeDef(node)}\n`
     })
     return {
@@ -132,6 +135,7 @@ const compileTypes: CompileTypes = async ({
   recursive,
   url,
   forceRequired = false,
+  forceReplace = {},
 }) => {
   const normalizedSource = normalizeSource(await transformSource(source))
   // 收集依赖
@@ -151,6 +155,7 @@ const compileTypes: CompileTypes = async ({
       type,
       contextMap: map,
       forceRequired,
+      forceReplace,
     })
   } else {
     // 全量 type
@@ -166,6 +171,7 @@ const compileTypes: CompileTypes = async ({
           imports,
           type,
           forceRequired,
+          forceReplace,
         })
         if (code) {
           return `${acc + code}\n`
